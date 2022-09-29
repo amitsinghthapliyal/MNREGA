@@ -1,0 +1,130 @@
+mysql> create database mgnrega;
+Query OK, 1 row affected (0.35 sec)
+
+mysql> use database mgnrega;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use mgnrega;
+Database changed
+mysql> create table bdo(
+    -> bid int primary key,
+    -> bname varchar(12) not null,
+    -> bemail varchar(15) unique not null,
+    -> bpassword varchar(15) not null,
+    -> bmobile varchar(10) not null,
+    -> baddress varchar(15) not null
+    -> );
+Query OK, 0 rows affected (2.04 sec)
+
+mysql> create table gpm(
+    -> gid int primary key,
+    -> gname varchar(12) not null,
+    -> gemail varchar(15) unique not null,
+    -> gpassword varchar(15) not null,
+    -> gmobile varchar(10) not null,
+    -> gaddress varchar(15) not null,
+    -> bdoid int,
+    -> foreign key (bdoid) references bdo(bid)
+    -> );
+Query OK, 0 rows affected (1.40 sec)
+
+mysql> create table project(
+    -> pid int primary key,
+    -> pname varchar(12) unique not null,
+    -> pcost varchar(12) not null,
+    -> pissuedate date not null,
+    -> gpmID int,
+    -> foreign key (gpmId) references gpm(gid)
+    -> );
+Query OK, 0 rows affected (1.36 sec)
+
+mysql> create table employee(
+    -> eid int primary key,
+    -> ename varchar(12) not null,
+    -> emobile varchar(10),
+    -> eaddress varchar(15) not null,
+    -> etotaldaywork int,
+    -> ewages varchar(15)
+    -> );
+
+
+mysql> create table project_employee(
+    -> pid int,
+    -> eid int,
+    -> foreign key (pid) references project(pid),
+    -> foreign key (eid) references employee(eid)
+    -> );
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> desc bdo;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| bid       | int         | NO   | PRI | NULL    |       |
+| bname     | varchar(12) | NO   |     | NULL    |       |
+| bemail    | varchar(15) | NO   | UNI | NULL    |       |
+| bpassword | varchar(15) | NO   |     | NULL    |       |
+| bmobile   | varchar(10) | NO   |     | NULL    |       |
+| baddress  | varchar(15) | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.06 sec)
+
+mysql> desc gpm;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| gid       | int         | NO   | PRI | NULL    |       |
+| gname     | varchar(12) | NO   |     | NULL    |       |
+| gemail    | varchar(15) | NO   | UNI | NULL    |       |
+| gpassword | varchar(15) | NO   |     | NULL    |       |
+| gmobile   | varchar(10) | NO   |     | NULL    |       |
+| gaddress  | varchar(15) | NO   |     | NULL    |       |
+| bdoid     | int         | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+
+
+mysql> desc project;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| pid        | int         | NO   | PRI | NULL    |       |
+| pname      | varchar(12) | NO   | UNI | NULL    |       |
+| pcost      | varchar(12) | NO   |     | NULL    |       |
+| pissuedate | date        | NO   |     | NULL    |       |
+| gpmID      | int         | YES  | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> desc employee;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| eid           | int         | NO   | PRI | NULL    |       |
+| ename         | varchar(12) | NO   |     | NULL    |       |
+| emobile       | varchar(10) | YES  |     | NULL    |       |
+| eaddress      | varchar(15) | NO   |     | NULL    |       |
+| etotaldaywork | int         | YES  |     | NULL    |       |
+| ewages        | varchar(15) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> desc project_employee;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| pid   | int  | YES  | MUL | NULL    |       |
+| eid   | int  | YES  | MUL | NULL    |       |
++-------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into bdo values(1, "amit", "amit@gmail.com", "amit123@", "9876543210", "dehradun");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from bdo;
++-----+-------+----------------+-----------+------------+----------+
+| bid | bname | bemail         | bpassword | bmobile    | baddress |
++-----+-------+----------------+-----------+------------+----------+
+|   1 | amit  | amit@gmail.com | amit123@  | 9876543210 | dehradun |
++-----+-------+----------------+-----------+------------+----------+
+1 row in set (0.00 sec)
+
+mysql>
