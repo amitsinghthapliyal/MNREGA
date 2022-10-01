@@ -6,7 +6,7 @@ public class GramPanchayatMember {
 	private String gname;
 	private String gemail;
 	private String gpassword;
-	private int gmobile;
+	private String gmobile;
 	private String gaddress;
 	private int bdoid;
 	
@@ -17,9 +17,7 @@ public class GramPanchayatMember {
 
 
 
-	public GramPanchayatMember(int gid, String gname, String gemail, String gpassword, int gmobile, String gaddress,
-			int bdoid) {
-		super();
+	public GramPanchayatMember(int gid, String gname, String gemail, String gpassword, String gmobile, String gaddress, int bdoid) {
 		this.gid = gid;
 		this.gname = gname;
 		this.gemail = gemail;
@@ -70,12 +68,12 @@ public class GramPanchayatMember {
 	}
 
 
-	public int getGmobile() {
+	public String getGmobile() {
 		return gmobile;
 	}
 
 
-	public void setGmobile(int gmobile) {
+	public void setGmobile(String gmobile) {
 		this.gmobile = gmobile;
 	}
 

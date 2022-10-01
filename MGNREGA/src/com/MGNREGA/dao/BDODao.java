@@ -17,7 +17,7 @@ public interface BDODao {
 	
 	public String createProject(int pid, String pname, String pcost, String pissuedate);
 	
-	public List<Project> getAllStudentDetails()throws ProjectException;
+	public List<Project> getListOfProject()throws ProjectException;
 	
 	public String registerGPM(int gid, String gname, String gemail, String gpassword, int gmobile, String gaddress, int bdoid);
 	
