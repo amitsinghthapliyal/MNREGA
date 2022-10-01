@@ -153,8 +153,7 @@ public class BDODaoImpl implements BDODao{
 	
 
 	@Override
-	public String registerGPM(int gid, String gname, String gemail, String gpassword, int gmobile, String gaddress,
-			int bdoid) {
+	public String registerGPM(int gid, String gname, String gemail, String gpassword, String gmobile, String gaddress,int bdoid) {
 		
 		String message = "Not Registered..";
 	
@@ -172,7 +171,7 @@ public class BDODaoImpl implements BDODao{
 			ps.setString(2, gname);
 			ps.setString(3, gemail);
 			ps.setString(4, gpassword);
-			ps.setInt(5, gmobile);
+			ps.setString(5, gmobile);
 			ps.setString(6, gaddress);
 			ps.setInt(7, bdoid);
 			
@@ -282,7 +281,7 @@ public class BDODaoImpl implements BDODao{
 		
 		try (Connection conn = DBUtil.provideConnection()){
 			
-			PreparedStatement ps= conn.prepareStatement("select e.ename, e.emobile,e.eaddress, e.dayworked, e.ewages, p.pname "
+			PreparedStatement ps= conn.prepareStatement("select e.ename, e.emobile,e.eaddress, e.etotaldaywork, e.ewages, p.pname "
 														+ "from  employee e INNER JOIN project p INNER JOIN project_employee pe "
 														+ "ON e.eid = pe.eid AND p.pid = pe.pid AND p.pname= ?");
 			
@@ -296,7 +295,7 @@ public class BDODaoImpl implements BDODao{
 				String m= rs.getString("emobile");
 				
 				String a= rs.getString("eaddress");
-				int d= rs.getInt("dayworked");
+				int d= rs.getInt("etotaldaywork");
 				String w = rs.getString("ewages");
 				String p = rs.getString("pname");
 				
@@ -318,4 +317,6 @@ public class BDODaoImpl implements BDODao{
 		return edtos;	
 		
 	}
+
+
 }
