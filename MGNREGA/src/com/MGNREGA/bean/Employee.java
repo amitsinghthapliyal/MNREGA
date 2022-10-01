@@ -7,13 +7,13 @@ public class Employee {
 	private String emobile;
 	private String eaddress;
 	private int dayworked;
-	private int ewages;
+	private String ewages;
 
 	public Employee() {
 		
 	}
 
-	public Employee(int eid, String ename, String emobile, String eaddress, int dayworked, int ewages) {
+	public Employee(int eid, String ename, String emobile, String eaddress, int dayworked, String ewages) {
 		super();
 		this.eid = eid;
 		this.ename = ename;
@@ -63,11 +63,11 @@ public class Employee {
 		this.dayworked = dayworked;
 	}
 
-	public int getEwages() {
+	public String getEwages() {
 		return ewages;
 	}
 
-	public void setEwages(int ewages) {
+	public void setEwages(String ewages) {
 		this.ewages = ewages;
 	}
 

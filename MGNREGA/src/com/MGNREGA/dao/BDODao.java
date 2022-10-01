@@ -19,7 +19,7 @@ public interface BDODao {
 	
 	public List<Project> getListOfProject()throws ProjectException;
 	
-	public String registerGPM(int gid, String gname, String gemail, String gpassword, int gmobile, String gaddress, int bdoid);
+	public String registerGPM(int gid, String gname, String gemail, String gpassword, String gmobile, String gaddress, int bdoid);
 	
 	public List<GramPanchayatMember> getAllGPM()throws GPMException;
 	
