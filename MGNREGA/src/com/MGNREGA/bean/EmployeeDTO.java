@@ -6,7 +6,7 @@ public class EmployeeDTO {
 	private String emobile;
 	private String eaddress;
 	private int dayworked;
-	private int ewages;
+	private String ewages;
 	
 	private String pname;
 	
@@ -16,7 +16,7 @@ public class EmployeeDTO {
 	}
 
 
-	public EmployeeDTO(String ename, String emobile, String eaddress, int dayworked, int ewages, String pname) {
+	public EmployeeDTO(String ename, String emobile, String eaddress, int dayworked, String ewages, String pname) {
 		super();
 		this.ename = ename;
 		this.emobile = emobile;
@@ -67,12 +67,12 @@ public class EmployeeDTO {
 	}
 
 
-	public int getEwages() {
+	public String getEwages() {
 		return ewages;
 	}
 
 
-	public void setEwages(int ewages) {
+	public void setEwages(String ewages) {
 		this.ewages = ewages;
 	}
 
