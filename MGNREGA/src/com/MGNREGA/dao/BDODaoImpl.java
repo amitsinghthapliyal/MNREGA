@@ -12,6 +12,7 @@ import com.MGNREGA.bean.EmployeeDTO;
 import com.MGNREGA.bean.GramPanchayatMember;
 import com.MGNREGA.bean.Project;
 import com.MGNREGA.exceptions.BDOException;
+import com.MGNREGA.exceptions.EmployeeException;
 import com.MGNREGA.exceptions.GPMException;
 import com.MGNREGA.exceptions.ProjectException;
 import com.MGNREGA.utility.DBUtil;
@@ -257,11 +258,56 @@ public class BDODaoImpl implements BDODao{
 	@Override
 	public String allocateProjectToGPM(int pid, int gid) throws GPMException, ProjectException {
 
-		String message ="Not Allocated";
+		String message ="Not Allocated..";
 		
+		
+		try(Connection conn= DBUtil.provideConnection()) {
+			
+		 	PreparedStatement ps= conn.prepareStatement("select * from gpm where gid =?");
+			
+		 	
+		 	ps.setInt(1, gid);
+		 	
+		 	ResultSet rs= ps.executeQuery();
+			
+		 	if(rs.next()) {
+		 		
+		 		PreparedStatement ps2= conn.prepareStatement("select * from project where pid=?");
+		 		
+		 		ps2.setInt(1, pid);
+
+		 		ResultSet rs2= ps2.executeQuery();
+		 		
+		 		if(rs2.next()) {
+		 			
+
+		 			PreparedStatement ps3= conn.prepareStatement("insert into project_gpm values(?,?)");
+		 			
+		 			
+		 			ps3.setInt(1, pid);
+		 			ps3.setInt(2, gid);
+		 			
+		 			int x= ps3.executeUpdate();
+		 			
+		 			if(x > 0)
+		 				message = "Project Assigned to GPM Sucessfully.. ";
+		 			else
+		 				throw new GPMException("Techical error..");
+		 			
+		 			
+		 			
+		 		}
+		 		else
+		 			throw new ProjectException("Invalid Project...");
+		 				
+		 	}else
+		 		throw new GPMException("Invalid GPM...");
+			
+		} catch (SQLException e) {
+			throw new GPMException(e.getMessage());
+		}
 		
 		return message;
-		
 		
 	}
 	
